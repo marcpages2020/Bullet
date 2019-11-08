@@ -37,23 +37,59 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update()
 {
+	float camera_speed = 0.05f;
+	vec3 rotation;
+
 	// OnKeys WASD keys -----------------------------------
 
 	// TODO 3: Make the camera go up/down when pressing R (up) F(down)
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT){
+		Position.y += camera_speed;
+		Reference.y += camera_speed;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
+		Position.y -= camera_speed;
+		Reference.y -= camera_speed;
+	}
 
 	// TODO 4: Make the camera go forward (w) and backward with (s)
 	// Note that the vectors X/Y/Z contain the current axis of the camera
 	// you can read them to modify Position
 
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		Position -= Z * 0.125f;
+		Reference -= Z * 0.125f;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		Position += Z * 0.125f;
+		Reference += Z * 0.125f;
+	}
+
 	// TODO 5: Make the camera go left (a) and right with (d)
 	// Note that the vectors X/Y/Z contain the current axis of the camera
 	// you can read them to modify Position
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		Position -= X * 0.125f;
+		Reference -= X * 0.125f;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		Position += X * 0.125f;
+		Reference += X * 0.125f;
+	}
 	
 	// Mouse motion ----------------
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
+		rotation = Position;
+		//rotation = Position;
+		LOG("Rotation x: %.2f y: %.2f z: %.2f", rotation.x, rotation.y, rotation.z);
+		//LookAt(rotation);
 
 		// TODO (Homework): Rotate the camera with the mouse
 	}
