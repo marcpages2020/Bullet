@@ -12,6 +12,8 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	Position = vec3(0.0f, 0.0f, 5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
+	Rotation = Position;
+	Rotation = Reference;
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -38,7 +40,6 @@ bool ModuleCamera3D::CleanUp()
 update_status ModuleCamera3D::Update()
 {
 	float camera_speed = 0.05f;
-	vec3 rotation;
 
 	// OnKeys WASD keys -----------------------------------
 
@@ -86,12 +87,14 @@ update_status ModuleCamera3D::Update()
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
-		rotation = Position;
-		//rotation = Position;
-		LOG("Rotation x: %.2f y: %.2f z: %.2f", rotation.x, rotation.y, rotation.z);
-		//LookAt(rotation);
-
+		//Rotation = Reference;
 		// TODO (Homework): Rotate the camera with the mouse
+		Rotation = rotate(Z, dx, Y);
+		Rotation = rotate(Y, dy, X);
+
+		LOG("dx: %i dy: %i", dx, dy);
+		LOG("Z: %f", Rotation.x);
+		LookAt(Rotation);
 	}
 
 	// Recalculate matrix -------------
