@@ -24,7 +24,8 @@ private:
 
 public:
 	
-	vec3 X, Y, Z, Position, Reference, Rotation;
+	vec3 X, Y, Z, Position, Reference;
+	vec3 rotation;
 
 private:
 	mat4x4 ViewMatrix, ViewMatrixInverse;

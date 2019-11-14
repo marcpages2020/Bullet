@@ -11,9 +11,8 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
 	Position = vec3(0.0f, 0.0f, 5.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);
-	Rotation = Position;
-	Rotation = Reference;
+	Reference = vec3(1.0f, 1.0f, 1.0f);
+	rotation = Position;
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -89,12 +88,15 @@ update_status ModuleCamera3D::Update()
 		int dy = -App->input->GetMouseYMotion();
 		//Rotation = Reference;
 		// TODO (Homework): Rotate the camera with the mouse
-		Rotation = rotate(Z, dx, Y);
-		Rotation = rotate(Y, dy, X);
+
+		rotation += rotate(rotation, dx, Y);
+		rotation += rotate(rotation, dy, X);
+
+		Reference += rotation;
 
 		LOG("dx: %i dy: %i", dx, dy);
-		LOG("Z: %f", Rotation.x);
-		LookAt(Rotation);
+
+		LookAt(rotation);
 	}
 
 	// Recalculate matrix -------------
