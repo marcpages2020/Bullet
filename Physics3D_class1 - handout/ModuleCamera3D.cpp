@@ -89,14 +89,12 @@ update_status ModuleCamera3D::Update()
 		//Rotation = Reference;
 		// TODO (Homework): Rotate the camera with the mouse
 
-		rotation += rotate(rotation, dx, Y);
-		rotation += rotate(rotation, dy, X);
+		vec3 Forward = -Z;
 
-		Reference += rotation;
+		Forward = rotate(Forward, dx, Y);
+		Forward = rotate(Forward, dy, X);
 
-		LOG("dx: %i dy: %i", dx, dy);
-
-		LookAt(rotation);
+		LookAt(Forward + Position);
 	}
 
 	// Recalculate matrix -------------
