@@ -68,7 +68,6 @@ bool ModulePhysics3D::Start()
 		// Big rectangle as ground
 		 btMotionState* motionState = new btDefaultMotionState();
 		 btBoxShape* shape = new btBoxShape(btVector3(200.0f, 1.0f, 200.0f));
-
 		 btRigidBody::btRigidBodyConstructionInfo rigidBodyInfo(0.0f, motionState, shape);
 		 btRigidBody* rigidBody = new btRigidBody(rigidBodyInfo);
 
@@ -101,18 +100,37 @@ update_status ModulePhysics3D::Update(float dt)
 		{
 			// TODO 7: Create a Solid Sphere when pressing 1 on camera position
 			btMotionState* motionState = new btDefaultMotionState();
-			int x, y, z;
-			x = App->camera->Position.x;
-			y = App->camera->Position.y;
-			z = App->camera->Position.z;
-			btSphereShape* shape = new btSphereShape(1);
+			btSphereShape* sphere_shape = new btSphereShape(1);
 
-			btRigidBody::btRigidBodyConstructionInfo sphereInfo(1, motionState, shape, btVector3(1, 1, 1));
+			btRigidBody::btRigidBodyConstructionInfo sphereInfo(1, motionState, sphere_shape, btVector3(0, 0, 0));
 			btRigidBody* sphereBody = new btRigidBody(sphereInfo);
-
-			btTransform()
+			mat4x4 sphere_position = IdentityMatrix;
+			btTransform transform;
+	
+			sphere_position.translate(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+			transform.setFromOpenGLMatrix(sphere_position.M);
+			motionState->setWorldTransform(transform);
+			sphereBody->setMotionState(motionState);
 
 			world->addRigidBody(sphereBody);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+
+			btMotionState* motionState = new btDefaultMotionState();
+			btBoxShape* box_shape = new btBoxShape(btVector3(1,1,1));
+
+			btRigidBody::btRigidBodyConstructionInfo boxInfo(1, motionState, box_shape, btVector3(0, 0, 0));
+			btRigidBody* boxBody = new btRigidBody(boxInfo);
+			mat4x4 box_position = IdentityMatrix;
+			btTransform transform;
+
+			box_position.translate(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+			transform.setFromOpenGLMatrix(box_position.M);
+			motionState->setWorldTransform(transform);
+			boxBody->setMotionState(motionState);
+
+			world->addRigidBody(boxBody);
 		}
 	}
 
