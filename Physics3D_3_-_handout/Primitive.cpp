@@ -20,6 +20,7 @@ PrimitiveTypes Primitive::GetType() const
 void Primitive::Update()
 {
 	//TODO 5: Set the primitive position and rotation to the PhysBody position and rotation
+	
 }
 
 // ------------------------------------------------------------
@@ -171,6 +172,7 @@ Sphere::Sphere(float _radius, float mass) : Primitive(), radius(_radius)
 {
 	type = PrimitiveTypes::Primitive_Sphere;
 	//TODO 4: Initialize the PhysBody to be a Sphere
+	physBody.InitBody(this, mass);
 }
 
 void Sphere::InnerRender() const

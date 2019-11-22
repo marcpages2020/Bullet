@@ -31,6 +31,7 @@ public:
 	mat4x4 transform;
 	bool axis,wire;
 	//TODO 4: Add a PhysBody to the primitive
+	PhysBody3D physBody;
 
 protected:
 	virtual void InnerRender() const;
