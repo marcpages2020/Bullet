@@ -32,9 +32,11 @@ bool ModuleSceneIntro::Start()
 		Sphere* s = new Sphere(Size);
 		primitives.PushBack(s);
 		s->SetPos(XPos, 10.f, 2.5f);
-
 		//TODO 2: Link all the spheres with your P2P constraints
-
+		if (primitives.Count() > 1)
+		{
+			App->physics->AddConstraintP2P(*s, *s->body.parentPrimitive, s->body.GetBody()->getCenterOfMassPosition(), s->body.parentPrimitive->body.GetBody()->getCenterOfMassPosition());
+		}
 		XPos += Size + Size + SizeIncrement + BallDistance;
 		Size += SizeIncrement;
 	}

@@ -134,6 +134,11 @@ bool ModulePhysics3D::CleanUp()
 		btCollisionObject* obj = world->getCollisionObjectArray()[i];
 		world->removeCollisionObject(obj);
 	}
+	
+	for (p2List_item<btPoint2PointConstraint*>*  item = constraints.getFirst(); item != nullptr; item = item->next)
+	{
+		constraints.del(item);
+	}
 
 	delete world;
 
@@ -205,4 +210,11 @@ void DebugDrawer::setDebugMode(int debugMode)
 int	 DebugDrawer::getDebugMode() const
 {
 	return mode;
+}
+
+
+void ModulePhysics3D::AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB) {
+	btPoint2PointConstraint* constraint = new btPoint2PointConstraint(bodyA.body.GetBody(), bodyB.body.GetBody(), pivotInA, pivotInB);
+	constraints.add(constraint);
+	world->addConstraint(constraint);
 }
