@@ -16,6 +16,7 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
+	int k = 0;
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
@@ -37,9 +38,26 @@ bool ModuleSceneIntro::Start()
 		{
 			App->physics->AddConstraintP2P(*s, **primitives.At(n - 1),btVector3(s->GetRadius(),0,0), btVector3(-s->GetRadius(), 0, 0));
 		}
+		k = n;
 	}
 
 	//TODO 4: Link some other spheres with your Hinge constraint
+
+	XPos = 10.f;
+	Size = StartingSize;
+	for (int n = 0; n < SnakeLength; n++)
+	{
+		Sphere* s = new Sphere(Size);
+		primitives.PushBack(s);
+		s->SetPos(XPos, 10.f, 2.5f);
+		if (n > 0)
+		{
+			App->physics->AddConstraintHinge(*s, **primitives.At(k),
+				btVector3(s->GetRadius(), 0, 0), btVector3(-s->GetRadius(),0, 0),
+				btVector3(0,0,1),btVector3(0,0,1));
+		}
+		k++;
+	}
 
 	return ret;
 }
