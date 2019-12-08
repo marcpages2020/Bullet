@@ -28,12 +28,12 @@ public:
 	void AddBodyToWorld(btRigidBody* body);
 
 private:
-	btDefaultCollisionConfiguration*	collision_conf;
-	btCollisionDispatcher*				dispatcher;
-	btBroadphaseInterface*				broad_phase;
-	btSequentialImpulseConstraintSolver* solver;
-	btDiscreteDynamicsWorld*			world;
-	DebugDrawer*						debug_draw;
+	btDefaultCollisionConfiguration*		collision_conf;
+	btCollisionDispatcher*					dispatcher;
+	btBroadphaseInterface*					broad_phase;
+	btSequentialImpulseConstraintSolver*	solver;
+	btDiscreteDynamicsWorld*				world;
+	DebugDrawer*							debug_draw;
 };
 
 class DebugDrawer : public btIDebugDraw
