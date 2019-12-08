@@ -19,9 +19,12 @@ PhysBody3D::~PhysBody3D()
 {
 	//TODO 2: And delete them!
 	//Make sure there's actually something to delete, check before deleting
-	if (body != nullptr) delete body;
-	if (collision_shape != nullptr) delete collision_shape;
-	if (motionState != nullptr) delete motionState;
+	if (body != nullptr) 
+		delete body;
+	if (collision_shape != nullptr) 
+		delete collision_shape;
+	if (motionState != nullptr)
+		delete motionState;
 }
 
 void PhysBody3D::InitBody(Sphere* primitive, float mass)
@@ -61,6 +64,8 @@ void PhysBody3D::GetTransform(float* matrix) const
 	if (HasBody() == false)
 		return;
 	//TODO 5: Set the Physical Body transform into "matrix"
+	body->getCenterOfMassTransform().getOpenGLMatrix(matrix);
+	body->activate();
 }
 
 // ---------------------------------------------------------
@@ -69,7 +74,11 @@ void PhysBody3D::SetTransform(const float* matrix) const
 	if (HasBody() == false)
 		return;
 
+	btTransform transform;
+	transform.setFromOpenGLMatrix(matrix);
 	//TODO 5: Set the Physical Body transform to equal "matrix"
+	body->setWorldTransform(transform);
+	body->activate();
 }
 
 // ---------------------------------------------------------
@@ -79,4 +88,6 @@ void PhysBody3D::SetPos(float x, float y, float z)
 		return;
 
 	//TODO 5: Set the Physical Body position to x, y, z. Make sure not to change the rotation!
+	body->translate(btVector3(x, y, z));
+	body->activate();
 }

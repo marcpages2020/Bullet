@@ -26,8 +26,8 @@ public:
 
 private:
 	btRigidBody* body;
-	btCollisionShape* collision_shape;
-	btDefaultMotionState* motionState;
+	btCollisionShape* collision_shape = nullptr;
+	btDefaultMotionState* motionState = nullptr;
 	//TODO 1: Store all "new" created values
 
 public:
