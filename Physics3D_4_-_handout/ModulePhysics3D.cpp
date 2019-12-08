@@ -214,7 +214,6 @@ int	 DebugDrawer::getDebugMode() const
 
 
 void ModulePhysics3D::AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB) {
-	btPoint2PointConstraint* constraint = new btPoint2PointConstraint(bodyA.body.GetBody(), bodyB.body.GetBody(), pivotInA, pivotInB);
-	constraints.add(constraint);
+	btPoint2PointConstraint* constraint = new btPoint2PointConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB);
 	world->addConstraint(constraint);
 }

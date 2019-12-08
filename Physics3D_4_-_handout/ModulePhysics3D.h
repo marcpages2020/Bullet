@@ -38,13 +38,13 @@ public:
 	//void AddConstraintHinge(const Primitive & bodyA, const Primitive & bodyB, ...);
 
 private:
-	btDefaultCollisionConfiguration*	collision_conf;
-	btCollisionDispatcher*				dispatcher;
-	btBroadphaseInterface*				broad_phase;
-	btSequentialImpulseConstraintSolver* solver;
-	btDiscreteDynamicsWorld*			world;
-	DebugDrawer*						debug_draw;
-	p2List<btPoint2PointConstraint*>	constraints;
+	btDefaultCollisionConfiguration*		collision_conf;
+	btCollisionDispatcher*					dispatcher;
+	btBroadphaseInterface*					broad_phase;
+	btSequentialImpulseConstraintSolver*	solver;
+	btDiscreteDynamicsWorld*				world;
+	DebugDrawer*							debug_draw;
+	p2List<btPoint2PointConstraint*>		constraints;
 };
 
 class DebugDrawer : public btIDebugDraw
