@@ -35,7 +35,7 @@ public:
 	
 
 	//TODO 3: Implement the code to add a Hinge constraint ( btHingeConstraint )
-	//void AddConstraintHinge(const Primitive & bodyA, const Primitive & bodyB, ...);
+	void AddConstraintHinge(const Primitive & bodyA, const Primitive & bodyB, const btVector3& pivotInA, const btVector3& pivotInB, btVector3& axisInA, btVector3& axisInB);
 
 private:
 	btDefaultCollisionConfiguration*		collision_conf;
@@ -44,7 +44,7 @@ private:
 	btSequentialImpulseConstraintSolver*	solver;
 	btDiscreteDynamicsWorld*				world;
 	DebugDrawer*							debug_draw;
-	p2List<btPoint2PointConstraint*>		constraints;
+	p2List<btPoint2PointConstraint*>		p2pconstraints;
 };
 
 class DebugDrawer : public btIDebugDraw

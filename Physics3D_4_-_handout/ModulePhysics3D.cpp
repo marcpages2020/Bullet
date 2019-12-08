@@ -135,10 +135,12 @@ bool ModulePhysics3D::CleanUp()
 		world->removeCollisionObject(obj);
 	}
 	
-	for (p2List_item<btPoint2PointConstraint*>*  item = constraints.getFirst(); item != nullptr; item = item->next)
+	for (p2List_item<btPoint2PointConstraint*>*  item = p2pconstraints.getFirst(); item != nullptr; item = item->next)
 	{
-		constraints.del(item);
+		p2pconstraints.del(item);
 	}
+
+	//TODO LAST: delete hinge constraints
 
 	delete world;
 
@@ -215,5 +217,10 @@ int	 DebugDrawer::getDebugMode() const
 
 void ModulePhysics3D::AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB) {
 	btPoint2PointConstraint* constraint = new btPoint2PointConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB);
+	world->addConstraint(constraint);
+}
+
+void ModulePhysics3D::AddConstraintHinge(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotInA, const btVector3& pivotInB, btVector3& axisInA, btVector3& axisInB) {
+	btHingeConstraint* constraint = new btHingeConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotInA, pivotInB, axisInA, axisInB);
 	world->addConstraint(constraint);
 }
