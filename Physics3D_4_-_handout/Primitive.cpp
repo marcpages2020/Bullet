@@ -115,6 +115,7 @@ void Primitive::Scale(float x, float y, float z)
 Cube::Cube(const vec3& _size, float mass) : Primitive(), size(_size)
 {
 	type = PrimitiveTypes::Primitive_Cube;
+	body.SetBody(this, mass);
 }
 
 vec3 Cube::GetSize() const
@@ -192,6 +193,7 @@ void Sphere::InnerRender() const
 Cylinder::Cylinder(float radius, float height, float mass) : Primitive(), radius(radius), height(height)
 {
 	type = PrimitiveTypes::Primitive_Cylinder;
+	body.SetBody(this, mass);
 }
 
 float Cylinder::GetRadius() const

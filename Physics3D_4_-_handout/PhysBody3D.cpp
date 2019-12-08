@@ -34,12 +34,22 @@ void PhysBody3D::SetBody(Sphere* primitive, float mass)
 		primitive, mass);
 }
 
+void PhysBody3D::SetBody(Cylinder* primitive, float mass) {
+
+	SetBody(new btCylinderShape(btVector3(primitive->GetRadius(),primitive->GetRadius(),primitive->GetHeight() * 0.5)), primitive, mass);
+}
+
+void PhysBody3D::SetBody(Cube* primitive, float mass) {
+	SetBody(new btBoxShape(btVector3(primitive->GetSize().x * 0.5,primitive->GetSize().y * 0.5,primitive->GetSize().z * 0.5)),
+		primitive,mass);
+}
+
 bool PhysBody3D::HasBody() const
 {
 	return body != nullptr;
 }
 
-btRigidBody * PhysBody3D::GetBody() const
+btRigidBody* PhysBody3D::GetBody() const
 {
 	return body;
 }
